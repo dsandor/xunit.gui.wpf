@@ -50,6 +50,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="xunit.runner.utility">
+      <HintPath>..\..\xunit\xunit.runner.utility.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -57,7 +60,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Models\ExecutionStatus.cs" />
+    <Compile Include="Models\ResultStatus.cs" />
+    <Compile Include="ViewModels\AssemblyViewModel.cs" />
+    <Compile Include="ViewModels\ClassViewModel.cs" />
     <Compile Include="ViewModels\IRunnerViewModel.cs" />
+    <Compile Include="ViewModels\MethodViewModel.cs" />
     <Compile Include="ViewModels\RunnerViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\RunnerView.xaml.cs">
@@ -103,15 +111,7 @@
   <ItemGroup>
     <SplashScreen Include="gfx\xunit.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\xunit.runner.utility\xunit.runner.utility.csproj">
-      <Project>{2ce5d729-2e2a-4d36-8161-0f215b1c46af}</Project>
-      <Name>xunit.runner.utility</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
