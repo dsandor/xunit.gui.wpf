@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 using xunit.gui.wpf.Models;
 
 namespace xunit.gui.wpf.ViewModels
 {
     public class MethodViewModel : ViewModelBase
     {
+        public MethodViewModel(TestMethod testMethod)
+        {
+            this.Name            = testMethod.MethodName;
+            this.ExecutionStatus = ExecutionStatus.NotExecuted;
+            this.ResultStatus    = ResultStatus.NotExecuted;
+        }
         /// <summary>
         /// Private backing variable for Name property.
         /// </summary>

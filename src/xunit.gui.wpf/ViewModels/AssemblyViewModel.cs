@@ -13,9 +13,13 @@ namespace xunit.gui.wpf.ViewModels
     {
         public AssemblyViewModel(TestAssembly testAssembly)
         {
+            this.Classes = new ObservableCollection<ClassViewModel>();
+            this.ResultStatus = ResultStatus.NotExecuted;
+            this.Name = testAssembly.AssemblyFilename;
+
             foreach (var c in testAssembly.EnumerateClasses())
             {
-                // Todo complete this.. 
+                this.Classes.Add(new ClassViewModel(c));
             }
         }
 
@@ -54,6 +58,25 @@ namespace xunit.gui.wpf.ViewModels
             {
                 this.classes = value;
                 SafeNotify("Classes");
+            }
+        }
+
+        /// <summary>
+        /// Private backing variable for Name property.
+        /// </summary>
+        private string name;
+
+        /// <summary>
+        /// Public property named Name backed by a private variable named name that
+        /// calls SafeNotify("Name"); when the value changes.
+        /// </summary>	
+        public string Name
+        {
+            get { return this.name; }
+            set
+            {
+                this.name = value;
+                SafeNotify("Name");
             }
         }
     }

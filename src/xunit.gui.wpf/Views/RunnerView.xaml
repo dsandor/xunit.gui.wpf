@@ -21,7 +21,30 @@
             ItemsSource="{Binding Assemblies}"
             Grid.Row="1"
             >
-            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding Name}" />
+                        <ListView ItemsSource="{Binding Classes}" Margin="15 0 0 0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Label Content="{Binding Name}" />
+                                        <ListView ItemsSource="{Binding Methods}" Margin="15 0 0 0">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Name}" />
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                    
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Window>

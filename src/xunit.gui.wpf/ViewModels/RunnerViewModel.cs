@@ -15,7 +15,7 @@ namespace xunit.gui.wpf.ViewModels
 {
     public class RunnerViewModel : ViewModelBase, IRunnerViewModel
     {
-        MultiAssemblyTestEnvironment mate = new MultiAssemblyTestEnvironment();
+        readonly MultiAssemblyTestEnvironment mate = new MultiAssemblyTestEnvironment();
 
         public RunnerViewModel()
         {
@@ -29,11 +29,12 @@ namespace xunit.gui.wpf.ViewModels
 
         private void TestAssembliesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
-            //var traits = mate.EnumerateTraits();
             var assemblies = mate.EnumerateTestAssemblies();
-            //var methods = mate.EnumerateTestMethods();
 
-
+            foreach (var a in assemblies)
+            {
+                this.Assemblies.Add(new AssemblyViewModel(a));
+            }
         }
 
         #region Commands
