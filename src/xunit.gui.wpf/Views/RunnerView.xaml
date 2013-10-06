@@ -19,7 +19,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListView}">
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True"
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="1" 
+                                SnapsToDevicePixels="True"
                                 >
                             <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
                                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
@@ -61,18 +65,31 @@
         <ListView 
             ItemsSource="{Binding Assemblies}"
             Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            Padding="0"
             >
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding Name}" />
+                    <Grid Background="Gray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="{Binding Name}" Grid.Row="0" />
                         <ListView ItemsSource="{Binding Classes}" 
-                                  Margin="15 0 0 0">
+                                  HorizontalAlignment="Stretch"
+                                  HorizontalContentAlignment="Stretch"
+                                  Margin="15 0 0 0"
+                                  Padding="0"
+                                  Grid.Row="1">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
+                                    <StackPanel HorizontalAlignment="Stretch">
                                         <Label Content="{Binding Name}" />
                                         <ListView ItemsSource="{Binding Methods}" 
+                                                  HorizontalAlignment="Stretch"
+                                                  HorizontalContentAlignment="Stretch"
+                                                  Padding="0"
                                                   Margin="15 0 0 0">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
@@ -85,7 +102,7 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
