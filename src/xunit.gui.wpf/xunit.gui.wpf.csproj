@@ -60,7 +60,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Models\ExecutionStatus.cs" />
+    <Compile Include="Models\MostRecentlyUsedItem.cs" />
+    <Compile Include="Models\MostRecentlyUsedList.cs" />
     <Compile Include="Models\ResultStatus.cs" />
     <Compile Include="ViewModels\AssemblyViewModel.cs" />
     <Compile Include="ViewModels\ClassViewModel.cs" />

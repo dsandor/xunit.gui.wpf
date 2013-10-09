@@ -58,6 +58,16 @@
             <MenuItem Header="File"></MenuItem>
             <MenuItem Header="Assembly">
                 <MenuItem Header="Load" Command="{Binding AssemblyLoadCommand}"></MenuItem>
+                <Separator />
+                <MenuItem Header="Recent Assemblies" ItemsSource="{Binding MRUs}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=DataContext.LoadMruCommand}" />
+                            <Setter Property="CommandParameter" Value="{Binding}" />
+                            <Setter Property="Header" Value="{Binding Filename}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Project"></MenuItem>
         </Menu>
