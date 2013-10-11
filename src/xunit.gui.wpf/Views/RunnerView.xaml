@@ -4,48 +4,12 @@
         Title="{Binding Title}" Height="500" Width="800"
         >
     <Window.Resources>
-        <Style TargetType="{x:Type ListView}">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#FFABADB3"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListView}">
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                Background="{TemplateBinding Background}" 
-                                Padding="1" 
-                                SnapsToDevicePixels="True"
-                                >
-                            <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                            </ScrollViewer>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" TargetName="Bd" Value="White"/>
-                                <Setter Property="BorderBrush" TargetName="Bd" Value="#FFD9D9D9"/>
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsGrouping" Value="True"/>
-                                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-                            </MultiTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/xunit.gui.wpf;component/Theme/Glyphs.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/xunit.gui.wpf;component/Theme/Generic.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
     </Window.Resources>
     <Grid>
@@ -103,7 +67,21 @@
                                                   Margin="15 0 0 0">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Label Content="{Binding Name}" />
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="1*" />
+                                                            <ColumnDefinition Width="28" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Content="{Binding Name}" 
+                                                               Grid.Column="0"
+                                                               />
+                                                        <Rectangle Width="20" 
+                                                                   Height="20"
+                                                                   Grid.Column="1"
+                                                                   Fill="{DynamicResource AppbarCheck}"
+                                                                   ></Rectangle>
+        
+                                                    </Grid>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
