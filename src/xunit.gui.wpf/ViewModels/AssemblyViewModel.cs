@@ -84,15 +84,10 @@ namespace xunit.gui.wpf.ViewModels
 
         public TestAssembly TestAssembly { get; set; }
 
-        /* not done.. karaline calls..
         public IEnumerable<TestMethod> TestMethods
         {
-            get
-            {
-                var methods = from c in this.Classes
-                    select c.Methods.ToArray();
-            }
+            get { return from c in this.Classes from method in c.Methods select method.TestMethod; }
         }
-         * */
+        
     }
 }
