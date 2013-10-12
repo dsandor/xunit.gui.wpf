@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,7 +58,10 @@ namespace xunit.gui.wpf.ViewModels
 
         private void OnExecuteAllTests()
         {
-            mate.Run(mate.EnumerateTestMethods(), this);
+            Task.Factory.StartNew(() =>
+            {
+                mate.Run(mate.EnumerateTestMethods(), this);
+            });
         }
 
         public ICommand ExecuteSelectedTestsCommand { get; set; }
@@ -179,32 +183,72 @@ namespace xunit.gui.wpf.ViewModels
 
         public void AssemblyFinished(TestAssembly testAssembly, int total, int failed, int skipped, double time)
         {
-            throw new NotImplementedException();
+
+            var assemblyViewModel = this.Assemblies.First(p => p.TestAssembly == testAssembly);
+
+            if (failed > 0)
+            {
+                App.Current.Dispatcher.Invoke(() => { assemblyViewModel.ResultStatus = ResultStatus.Failed; });
+
+            }
+            else
+            {
+                App.Current.Dispatcher.Invoke(() => { assemblyViewModel.ResultStatus = ResultStatus.Passed; });
+            }
         }
 
         public void AssemblyStart(TestAssembly testAssembly)
         {
-            throw new NotImplementedException();
+            var assemblyViewModel = this.Assemblies.First(p => p.TestAssembly == testAssembly);
+            assemblyViewModel.ResultStatus = ResultStatus.Executing;
+            App.Current.Dispatcher.Invoke(() => { assemblyViewModel.ResultStatus = ResultStatus.Executing; });
         }
 
         public bool ClassFailed(TestClass testClass, string exceptionType, string message, string stackTrace)
         {
-            throw new NotImplementedException();
+            var c = (from assembly in this.Assemblies
+                from cl in assembly.Classes
+                where cl.TestClass == testClass
+                select cl).First();
+
+            App.Current.Dispatcher.Invoke(() => { c.ResultStatus = ResultStatus.Failed; });
+
+            return true;
         }
 
         public void ExceptionThrown(TestAssembly testAssembly, Exception exception)
         {
-            throw new NotImplementedException();
+            var assemblyViewModel = (from assembly in this.Assemblies
+                                   where assembly.TestAssembly == testAssembly
+                                   select assembly).First();
+
+            App.Current.Dispatcher.Invoke(() => { assemblyViewModel.ResultStatus = ResultStatus.Failed; });
         }
 
         public bool TestFinished(TestMethod testMethod)
         {
-            throw new NotImplementedException();
+            var methodViewModel = (from assemblyViewModel in this.Assemblies
+                                   from classViewModel in assemblyViewModel.Classes
+                                   from method in classViewModel.Methods
+                                   where method.TestMethod == testMethod
+                                   select method).First();
+
+            App.Current.Dispatcher.Invoke(() => { methodViewModel.ResultStatus = ResultStatus.Passed; });
+
+            return true;
         }
 
         public bool TestStart(TestMethod testMethod)
         {
-            throw new NotImplementedException();
+            var methodViewModel = (from assemblyViewModel in this.Assemblies
+                from classViewModel in assemblyViewModel.Classes
+                from method in classViewModel.Methods
+                where method.TestMethod == testMethod
+                select method).First();
+
+            App.Current.Dispatcher.Invoke(() => { methodViewModel.ResultStatus = ResultStatus.Executing; });
+
+            return true;
         }
         #endregion
 

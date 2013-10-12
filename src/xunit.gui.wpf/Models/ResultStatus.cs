@@ -10,7 +10,8 @@ namespace xunit.gui.wpf.Models
     {
         NotExecuted = 0,
         Skipped     = 1,
-        Failed      = 2,
-        Passed      = 3
+        Executing   = 2,
+        Failed      = 3,
+        Passed      = 4
     }
 }
