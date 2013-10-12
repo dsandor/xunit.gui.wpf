@@ -33,7 +33,10 @@
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Project"></MenuItem>
+            <MenuItem Header="Project">
+                <MenuItem Header="Execute All Tests" Command="{Binding ExecuteAllTestsCommand}" />
+                <MenuItem Header="Execute Selected Tests" Command="{Binding ExecuteSelectedTestsCommand}" />
+            </MenuItem>
         </Menu>
         
         <ListView 

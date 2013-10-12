@@ -14,7 +14,7 @@ using xunit.gui.wpf.Models;
 
 namespace xunit.gui.wpf.ViewModels
 {
-    public class RunnerViewModel : ViewModelBase, IRunnerViewModel
+    public class RunnerViewModel : ViewModelBase, IRunnerViewModel, ITestMethodRunnerCallback
     {
         private readonly MultiAssemblyTestEnvironment mate = new MultiAssemblyTestEnvironment();
         private readonly string mruFilename = "xunit.gui.wpf.mru";
@@ -24,8 +24,10 @@ namespace xunit.gui.wpf.ViewModels
             this.TestAssemblies = new ObservableCollection<TestAssembly>();
             this.Assemblies = new ObservableCollection<AssemblyViewModel>();
 
-            this.AssemblyLoadCommand = new DelegateCommand(OnAssemblyLoadCommand, CanAssemblyLoad);
-            this.LoadMruCommand = new DelegateCommand(OnLoadMru);
+            this.AssemblyLoadCommand         = new DelegateCommand(OnAssemblyLoadCommand, CanAssemblyLoad);
+            this.LoadMruCommand              = new DelegateCommand(OnLoadMru);
+            this.ExecuteAllTestsCommand      = new DelegateCommand(this.OnExecuteAllTests);
+            this.ExecuteSelectedTestsCommand = new DelegateCommand(this.OnExecuteSelectedTests);
 
             this.TestAssemblies.CollectionChanged += TestAssembliesOnCollectionChanged;
 
@@ -50,6 +52,20 @@ namespace xunit.gui.wpf.ViewModels
         }
 
         #region Commands
+
+        public ICommand ExecuteAllTestsCommand { get; set; }
+
+        private void OnExecuteAllTests()
+        {
+            mate.Run(mate.EnumerateTestMethods(), this);
+        }
+
+        public ICommand ExecuteSelectedTestsCommand { get; set; }
+
+        private void OnExecuteSelectedTests()
+        {
+
+        }
 
         public ICommand LoadMruCommand { get; set; }
 
@@ -158,5 +174,39 @@ namespace xunit.gui.wpf.ViewModels
                 this.MRUs.PersistToXmlFile(this.mruFilename);
             }
         }
+
+        #region ITestMethodRunnerCallback methods.
+
+        public void AssemblyFinished(TestAssembly testAssembly, int total, int failed, int skipped, double time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssemblyStart(TestAssembly testAssembly)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ClassFailed(TestClass testClass, string exceptionType, string message, string stackTrace)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExceptionThrown(TestAssembly testAssembly, Exception exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TestFinished(TestMethod testMethod)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TestStart(TestMethod testMethod)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }
