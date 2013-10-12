@@ -12,6 +12,7 @@ namespace xunit.gui.wpf.ViewModels
     {
         public MethodViewModel(TestMethod testMethod)
         {
+            this.TestMethod      = testMethod;
             this.Name            = testMethod.MethodName;
             this.ExecutionStatus = ExecutionStatus.NotExecuted;
             this.ResultStatus    = ResultStatus.NotExecuted;
@@ -91,5 +92,7 @@ namespace xunit.gui.wpf.ViewModels
                 SafeNotify("Output");
             }
         }
+
+        public TestMethod TestMethod { get; set; }
     }
 }

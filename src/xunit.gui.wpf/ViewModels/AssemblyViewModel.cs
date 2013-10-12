@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,9 +14,10 @@ namespace xunit.gui.wpf.ViewModels
     {
         public AssemblyViewModel(TestAssembly testAssembly)
         {
-            this.Classes = new ObservableCollection<ClassViewModel>();
+            this.TestAssembly = testAssembly;
+            this.Classes      = new ObservableCollection<ClassViewModel>();
             this.ResultStatus = ResultStatus.NotExecuted;
-            this.Name = testAssembly.AssemblyFilename;
+            this.Name         = testAssembly.AssemblyFilename;
 
             foreach (var c in testAssembly.EnumerateClasses())
             {
@@ -79,5 +81,18 @@ namespace xunit.gui.wpf.ViewModels
                 SafeNotify("Name");
             }
         }
+
+        public TestAssembly TestAssembly { get; set; }
+
+        /* not done.. karaline calls..
+        public IEnumerable<TestMethod> TestMethods
+        {
+            get
+            {
+                var methods = from c in this.Classes
+                    select c.Methods.ToArray();
+            }
+        }
+         * */
     }
 }

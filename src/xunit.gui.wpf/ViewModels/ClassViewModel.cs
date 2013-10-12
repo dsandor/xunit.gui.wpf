@@ -13,7 +13,8 @@ namespace xunit.gui.wpf.ViewModels
     {
         public ClassViewModel(TestClass testClass)
         {
-            this.Methods = new ObservableCollection<MethodViewModel>();
+            this.TestClass = testClass;
+            this.Methods   = new ObservableCollection<MethodViewModel>();
 
             foreach (var m in testClass.EnumerateTestMethods())
             {
@@ -21,7 +22,7 @@ namespace xunit.gui.wpf.ViewModels
             }
 
             this.ResultStatus = ResultStatus.NotExecuted;
-            this.Name = testClass.TypeName;
+            this.Name         = testClass.TypeName;
         }
 
         /// <summary>
@@ -80,5 +81,7 @@ namespace xunit.gui.wpf.ViewModels
                 SafeNotify("Name");
             }
         }
+
+        public TestClass TestClass { get; set; }
     }
 }
