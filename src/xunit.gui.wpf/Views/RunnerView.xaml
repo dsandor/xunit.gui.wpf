@@ -65,15 +65,16 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="26"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding Name}" Grid.Row="0" Grid.Column="0" />
 
-                        <Rectangle Width="20" 
+                        <Rectangle Width="14" 
                                     Grid.Row="0"
-                                    Height="20"
+                                    Height="16"
                                     Grid.Column="1"
                                     Fill="{Binding Path=ResultStatus, Converter={StaticResource ResultStatusConverter}}"
+                                    Margin="0 0 16 0"
                                     />
 
                         <ListView Grid.ColumnSpan="2" ItemsSource="{Binding Classes}" 
@@ -87,7 +88,7 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="24"/>
+                                            <ColumnDefinition Width="32"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="24"/>
@@ -98,11 +99,12 @@
                                                Grid.Row="0"
                                                Grid.Column="0" />
 
-                                        <Rectangle Width="20" 
+                                        <Rectangle Width="14" 
                                                     Grid.Row="0"
-                                                    Height="20"
+                                                    Height="16"
                                                     Grid.Column="1"
                                                     Fill="{Binding Path=ResultStatus, Converter={StaticResource ResultStatusConverter}}"
+                                                   Margin="0 0 4 0"
                                                     />
 
                                         <ListView ItemsSource="{Binding Methods}" 
@@ -124,8 +126,8 @@
                                                         <Label Content="{Binding Name}" 
                                                                Grid.Column="0"
                                                                />
-                                                        <Rectangle Width="20" 
-                                                                   Height="20"
+                                                        <Rectangle Width="14" 
+                                                                   Height="16"
                                                                    Grid.Column="1"
                                                                    Fill="{Binding Path=ResultStatus, Converter={StaticResource ResultStatusConverter}}"
                                                                    />

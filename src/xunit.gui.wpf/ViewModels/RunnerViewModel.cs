@@ -195,6 +195,15 @@ namespace xunit.gui.wpf.ViewModels
             {
                 App.Current.Dispatcher.Invoke(() => { assemblyViewModel.ResultStatus = ResultStatus.Passed; });
             }
+
+            // Figure out the class status becuase there is no callback currently for class.. odd.
+            foreach (var c in assemblyViewModel.Classes)
+            {
+                if (c.Methods.Count(p => p.ResultStatus != ResultStatus.Passed) == 0)
+                    App.Current.Dispatcher.Invoke(() => { c.ResultStatus = ResultStatus.Passed; });
+                else
+                    App.Current.Dispatcher.Invoke(() => { c.ResultStatus = ResultStatus.Failed; });
+            }
         }
 
         public void AssemblyStart(TestAssembly testAssembly)
@@ -246,7 +255,12 @@ namespace xunit.gui.wpf.ViewModels
                 where method.TestMethod == testMethod
                 select method).First();
 
-            App.Current.Dispatcher.Invoke(() => { methodViewModel.ResultStatus = ResultStatus.Executing; });
+            App.Current.Dispatcher.Invoke(() => 
+            { 
+                methodViewModel.ResultStatus = ResultStatus.Executing;
+
+                if (methodViewModel.Parent.ResultStatus != ResultStatus.Executing) methodViewModel.Parent.ResultStatus = ResultStatus.Executing;
+            });
 
             return true;
         }

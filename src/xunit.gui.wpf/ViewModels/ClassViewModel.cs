@@ -18,7 +18,7 @@ namespace xunit.gui.wpf.ViewModels
 
             foreach (var m in testClass.EnumerateTestMethods())
             {
-                this.Methods.Add(new MethodViewModel(m));    
+                this.Methods.Add(new MethodViewModel(m, this));    
             }
 
             this.ResultStatus = ResultStatus.NotExecuted;

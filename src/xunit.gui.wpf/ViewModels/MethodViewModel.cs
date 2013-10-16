@@ -10,12 +10,13 @@ namespace xunit.gui.wpf.ViewModels
 {
     public class MethodViewModel : ViewModelBase
     {
-        public MethodViewModel(TestMethod testMethod)
+        public MethodViewModel(TestMethod testMethod, ClassViewModel parentClassViewModel)
         {
             this.TestMethod      = testMethod;
             this.Name            = testMethod.MethodName;
             this.ExecutionStatus = ExecutionStatus.NotExecuted;
             this.ResultStatus    = ResultStatus.NotExecuted;
+            this.Parent          = parentClassViewModel;
         }
         /// <summary>
         /// Private backing variable for Name property.
@@ -94,5 +95,7 @@ namespace xunit.gui.wpf.ViewModels
         }
 
         public TestMethod TestMethod { get; set; }
+
+        public ClassViewModel Parent { get; set; }
     }
 }
