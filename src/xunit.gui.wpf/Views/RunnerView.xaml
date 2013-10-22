@@ -116,6 +116,11 @@
                                                   Grid.Column="0"
                                                   Grid.ColumnSpan="2"
                                                   >
+                                            <ListView.Resources>
+                                                <Style TargetType="{x:Type ListViewItem}">
+                                                    <Setter Property="IsSelected" Value="{Binding Selected, Mode=TwoWay}" />
+                                                </Style>
+                                            </ListView.Resources>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>

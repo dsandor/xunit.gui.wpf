@@ -68,7 +68,19 @@ namespace xunit.gui.wpf.ViewModels
 
         private void OnExecuteSelectedTests()
         {
+            var selected = from a in this.Assemblies
+                           from c in a.Classes
+                           from m in c.Methods
+                           where m.Selected == true
+                           select m.TestMethod;
 
+            if (selected != null)
+            {
+                Task.Factory.StartNew(() =>
+                    {
+                        mate.Run(selected, this);
+                    });
+            }
         }
 
         public ICommand LoadMruCommand { get; set; }
@@ -197,6 +209,7 @@ namespace xunit.gui.wpf.ViewModels
             }
 
             // Figure out the class status becuase there is no callback currently for class.. odd.
+            // TODO: This is broken if the user selects only one test method the class is marked as failed but in reality it should be marked as pass.  Change evaluation.
             foreach (var c in assemblyViewModel.Classes)
             {
                 if (c.Methods.Count(p => p.ResultStatus != ResultStatus.Passed) == 0)

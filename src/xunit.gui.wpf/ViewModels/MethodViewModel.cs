@@ -18,6 +18,7 @@ namespace xunit.gui.wpf.ViewModels
             this.ResultStatus    = ResultStatus.NotExecuted;
             this.Parent          = parentClassViewModel;
         }
+
         /// <summary>
         /// Private backing variable for Name property.
         /// </summary>
@@ -91,6 +92,25 @@ namespace xunit.gui.wpf.ViewModels
             {
                 this.output = value;
                 SafeNotify("Output");
+            }
+        }
+
+        /// <summary>
+        /// Private backing variable for Selected property.
+        /// </summary>
+        private bool selected;
+
+        /// <summary>
+        /// Public property named Selected backed by a private variable named selected that
+        /// calls SafeNotify("Selected"); when the value changes.
+        /// </summary>	
+        public bool Selected
+        {
+            get { return this.selected; }
+            set
+            {
+                this.selected = value;
+                SafeNotify("Selected");
             }
         }
 
